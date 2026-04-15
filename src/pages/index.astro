@@ -1,0 +1,23 @@
+---
+import "../styles/global.css";
+import { Navbar } from "../components/Navbar";
+import Welcome from "../components/Welcome.astro"
+import Stacks from "../components/Stacks.astro"
+---
+
+<html lang="es">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<title>Portafolio</title>
+	</head>
+	<body
+		class="bg-pattern bg-linear-to-r/decreasing from-indigo-500 to-teal-400 text-white"
+	>
+		<Navbar client:load />
+		<main class="flex flex-col items-center justify-center h-100">
+			<Welcome/>
+			<Stacks/>
+		</main>
+	</body>
+</html>
