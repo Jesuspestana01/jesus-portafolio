@@ -2,15 +2,12 @@ import { useEffect, useState } from "react";
 
 export const Navbar = () => {
     const navLinks = [
-        { name: 'Home', path: '/' },
-        { name: 'Products', path: '/' },
-        { name: 'Contact', path: '/' },
-        { name: 'About', path: '/' },
+        { name: 'About me', path: '#about-me' },
+        { name: 'Projects', path: '#projects' },
+        { name: 'Contact', path: '#contact' },
     ];
 
     const [isScrolled, setIsScrolled] = useState(false);
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-
 
     useEffect(() => {
         const handleScroll = () => {

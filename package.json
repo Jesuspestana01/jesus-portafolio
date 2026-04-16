@@ -14,9 +14,13 @@
   "dependencies": {
     "@astrojs/react": "^5.0.3",
     "@tailwindcss/vite": "^4.2.2",
+    "aos": "^2.3.4",
     "astro": "^6.1.6",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
     "tailwindcss": "^4.2.2"
+  },
+  "devDependencies": {
+    "@types/aos": "^3.0.7"
   }
 }

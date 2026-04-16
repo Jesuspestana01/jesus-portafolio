@@ -1,8 +1,13 @@
 ---
 import "../styles/global.css";
-import { Navbar } from "../components/Navbar";
+import "aos/dist/aos.css";
 import Welcome from "../components/Welcome.astro"
-import Stacks from "../components/Stacks.astro"
+import Contact from "../components/Contact.astro"
+import { Navbar } from "../components/Navbar";
+import { Stacks } from "../components/Stacks.tsx"
+import { InfoCard } from "../components/InfoCard";
+import { Projects } from "../components/Projects"
+import { Footer } from "../components/Footer"
 ---
 
 <html lang="es">
@@ -15,9 +20,34 @@ import Stacks from "../components/Stacks.astro"
 		class="bg-pattern bg-linear-to-r/decreasing from-indigo-500 to-teal-400 text-white"
 	>
 		<Navbar client:load />
-		<main class="flex flex-col items-center justify-center h-100">
-			<Welcome/>
-			<Stacks/>
+		<main id="top" class="flex flex-col items-center justify-center">
+			<section id="about-me">
+				<Welcome/>
+			</section>
+			<section id="stacks">
+				<Stacks client:load/>
+			</section>
+			<section id="cards">
+				<InfoCard client:load/>
+			</section>
+			<section id="projects" class="py-20 px-4 mt-20">
+				<Projects client:load/>
+			</section>
+			<section id="contact" class="py-20 px-4 mt-20" style="width: 80rem;">
+				<Contact/>
+			</section>
+			<Footer/>
 		</main>
 	</body>
+	<script>
+  import AOS from 'aos';
+
+  const initAOS = () => {
+    AOS.init({
+      duration: 800,
+    });
+  };
+  initAOS();
+  document.addEventListener('astro:after-swap', initAOS);
+</script>
 </html>
