@@ -20,7 +20,7 @@ import { Footer } from "../components/Footer"
 		class="bg-pattern bg-linear-to-r/decreasing from-indigo-500 to-teal-400 text-white"
 	>
 		<Navbar client:load />
-		<main id="top" class="flex flex-col items-center justify-center">
+		<main id="top" class="flex flex-col items-center justify-center w-full flex flex-col overflow-x-hidden">
 			<section id="about-me">
 				<Welcome/>
 			</section>
@@ -33,9 +33,9 @@ import { Footer } from "../components/Footer"
 			<section id="projects" class="py-20 px-4 mt-20">
 				<Projects client:load/>
 			</section>
-			<section id="contact" class="py-20 px-4 mt-20" style="width: 80rem;">
-				<Contact/>
-			</section>
+			<section id="contact" class="py-20 px-4 w-full scroll-mt-24">
+    <Contact/>
+</section>
 			<Footer/>
 		</main>
 	</body>
