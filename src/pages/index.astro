@@ -1,13 +1,13 @@
 ---
 import "../styles/global.css";
 import "aos/dist/aos.css";
-import Welcome from "../components/Welcome.astro"
-import Contact from "../components/Contact.astro"
+import Welcome from "../components/Welcome.astro";
+import Contact from "../components/Contact.astro";
 import { Navbar } from "../components/Navbar";
-import { Stacks } from "../components/Stacks.tsx"
+import { Stacks } from "../components/Stacks.tsx";
 import { InfoCard } from "../components/InfoCard";
-import { Projects } from "../components/Projects"
-import { Footer } from "../components/Footer"
+import { Projects } from "../components/Projects";
+import { Footer } from "../components/Footer";
 ---
 
 <html lang="es">
@@ -17,37 +17,41 @@ import { Footer } from "../components/Footer"
 		<title>Portafolio</title>
 	</head>
 	<body
-		class="bg-pattern bg-linear-to-r/decreasing from-indigo-500 to-teal-400 text-white"
+		class="mt-20 bg-[#F4F7F6] bg-[linear-gradient(180deg,rgba(200,215,210,1)_0%,rgba(244,247,246,1)_35%)] text-[#0F2625]
+      dark:bg-[#000000] dark:bg-[linear-gradient(180deg,rgba(15,38,37,1)_0%,rgba(0,0,0,1)_35%)] dark:text-white"
 	>
 		<Navbar client:load />
-		<main id="top" class="flex flex-col items-center justify-center w-full flex flex-col overflow-x-hidden">
+		<main
+			id="top"
+			class="flex flex-col items-center justify-center w-full flex flex-col overflow-x-hidden"
+		>
 			<section id="about-me">
-				<Welcome/>
+				<Welcome />
 			</section>
 			<section id="stacks">
-				<Stacks client:load/>
+				<Stacks client:load />
 			</section>
 			<section id="cards">
-				<InfoCard client:load/>
+				<InfoCard client:load />
 			</section>
 			<section id="projects" class="py-20 px-4 mt-20">
-				<Projects client:load/>
+				<Projects client:load />
 			</section>
 			<section id="contact" class="py-20 px-4 w-full scroll-mt-24">
-    <Contact/>
-</section>
-			<Footer/>
+				<Contact />
+			</section>
+			<Footer />
 		</main>
 	</body>
 	<script>
-  import AOS from 'aos';
+		import AOS from "aos";
 
-  const initAOS = () => {
-    AOS.init({
-      duration: 800,
-    });
-  };
-  initAOS();
-  document.addEventListener('astro:after-swap', initAOS);
-</script>
+		const initAOS = () => {
+			AOS.init({
+				duration: 800,
+			});
+		};
+		initAOS();
+		document.addEventListener("astro:after-swap", initAOS);
+	</script>
 </html>
