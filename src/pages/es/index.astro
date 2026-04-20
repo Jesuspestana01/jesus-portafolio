@@ -1,0 +1,88 @@
+---
+import "../../styles/global.css";
+import "aos/dist/aos.css";
+
+// src/pages/en/index.astro
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+import { Navbar } from "../../components/Navbar";
+import Welcome from "../../components/Welcome.astro";
+import { Stacks } from "../../components/Stacks";
+import { InfoCard } from "../../components/InfoCard";
+import { Projects } from "../../components/Projects";
+import Contact from "../../components/Contact.astro";
+import { Footer } from "../../components/Footer";
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<html lang={lang}>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<title>Portafolio</title>
+
+		<!-- FOUC blocker -->
+		<script is:inline>
+			const theme = (() => {
+				if (
+					typeof localStorage !== "undefined" &&
+					localStorage.getItem("theme")
+				) {
+					return localStorage.getItem("theme");
+				}
+				if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+					return "dark";
+				}
+				return "light";
+			})();
+
+			if (theme === "light") {
+				document.documentElement.classList.remove("dark");
+			} else {
+				document.documentElement.classList.add("dark");
+			}
+
+			window.localStorage.setItem("theme", theme);
+		</script>
+	</head>
+	<body
+		class="mt-25 bg-[#F4F7F6] bg-[linear-gradient(180deg,rgba(200,215,210,1)_0%,rgba(244,247,246,1)_35%)] text-[#0F2625]
+      dark:bg-[#000000] dark:bg-[linear-gradient(180deg,rgba(15,38,37,1)_0%,rgba(0,0,0,1)_35%)] dark:text-white"
+	>
+		<Navbar lang={lang} client:load />
+		<main
+			id="top"
+			class="flex flex-col items-center justify-center w-full flex flex-col overflow-x-hidden"
+		>
+			<section id="about-me">
+				<Welcome t={t} />
+			</section>
+			<section id="stacks">
+				<Stacks lang={lang} client:load />
+			</section>
+			<section id="cards">
+				<InfoCard lang={lang} client:load />
+			</section>
+			<section id="projects" class="py-20 px-4 mt-20">
+				<Projects lang={lang} client:load />
+			</section>
+			<section id="contact" class="py-20 px-4 w-full scroll-mt-24">
+				<section id="contact">
+					<Contact lang={lang} t={t} />
+				</section>
+			</section>
+			<Footer lang={lang}/>
+		</main>
+	</body>
+	<script>
+		import AOS from "aos";
+
+		const initAOS = () => {
+			AOS.init({
+				duration: 800,
+			});
+		};
+		initAOS();
+		document.addEventListener("astro:after-swap", initAOS);
+	</script>
+</html>

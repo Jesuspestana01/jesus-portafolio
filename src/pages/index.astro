@@ -1,82 +1,27 @@
 ---
-import "../styles/global.css";
-import "aos/dist/aos.css";
-import Welcome from "../components/Welcome.astro";
-import Contact from "../components/Contact.astro";
-import { Navbar } from "../components/Navbar";
-import { Stacks } from "../components/Stacks.tsx";
-import { InfoCard } from "../components/InfoCard";
-import { Projects } from "../components/Projects";
-import { Footer } from "../components/Footer";
 ---
-
+<!DOCTYPE html>
 <html lang="es">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<title>Portafolio</title>
-
-		<!-- FOUC blocker -->
-		<script is:inline>
-			const theme = (() => {
-				if (
-					typeof localStorage !== "undefined" &&
-					localStorage.getItem("theme")
-				) {
-					return localStorage.getItem("theme");
-				}
-				if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-					return "dark";
-				}
-				return "light";
-			})();
-
-			if (theme === "light") {
-				document.documentElement.classList.remove("dark");
-			} else {
-				document.documentElement.classList.add("dark");
-			}
-
-			window.localStorage.setItem("theme", theme);
-		</script>
-		
-	</head>
-	<body
-		class="mt-25 bg-[#F4F7F6] bg-[linear-gradient(180deg,rgba(200,215,210,1)_0%,rgba(244,247,246,1)_35%)] text-[#0F2625]
-      dark:bg-[#000000] dark:bg-[linear-gradient(180deg,rgba(15,38,37,1)_0%,rgba(0,0,0,1)_35%)] dark:text-white"
-	>
-		<Navbar client:load />
-		<main
-			id="top"
-			class="flex flex-col items-center justify-center w-full flex flex-col overflow-x-hidden"
-		>
-			<section id="about-me">
-				<Welcome />
-			</section>
-			<section id="stacks">
-				<Stacks client:load />
-			</section>
-			<section id="cards">
-				<InfoCard client:load />
-			</section>
-			<section id="projects" class="py-20 px-4 mt-20">
-				<Projects client:load />
-			</section>
-			<section id="contact" class="py-20 px-4 w-full scroll-mt-24">
-				<Contact />
-			</section>
-			<Footer />
-		</main>
-	</body>
-	<script>
-		import AOS from "aos";
-
-		const initAOS = () => {
-			AOS.init({
-				duration: 800,
-			});
-		};
-		initAOS();
-		document.addEventListener("astro:after-swap", initAOS);
-	</script>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="0;url=/es/" />
+    <title>Jesus Pestana | Full Stack Developer</title>
+</head>
+<body>
+    <script is:inline>
+        const savedLang = localStorage.getItem('lang');
+        
+        if (savedLang === 'en' || savedLang === 'es') {
+            window.location.pathname = `/${savedLang}/`;
+        } else {
+            const browserLang = window.navigator.language.split('-')[0];
+            
+            if (browserLang === 'en') {
+                window.location.pathname = '/en/';
+            } else {
+                window.location.pathname = '/es/';
+            }
+        }
+    </script>
+</body>
 </html>

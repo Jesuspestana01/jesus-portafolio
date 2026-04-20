@@ -1,10 +1,13 @@
 import { socialMedia } from "../data/socialMediaIcons";
+import { ui } from "../i18n/ui";
 
-export const Footer = () => {
+export const Footer = ({ lang }: { lang: 'es' | 'en' }) => {
+    const t = ui[lang];
+
     const footerLinks = [
-        { name: 'About me', path: '#about-me' },
-        { name: 'Projects', path: '#projects' },
-        { name: 'Contact', path: '#contact' },
+        { name: t['nav.about'], path: '#about-me' },
+        { name: t['nav.projects'], path: '#projects' },
+        { name: t['nav.contact'], path: '#contact' },
     ];
 
     return (
@@ -17,9 +20,10 @@ export const Footer = () => {
                     </a>
                 ))}
             </div>
+            
             <div className="flex items-center gap-6 mt-8 text-slate-500 dark:text-zinc-400">
                 {socialMedia.map((icon, index) => (
-                    <a aria-label={icon.title} key={index} href={icon.link} className="transition-all duration-300 hover:-translate-y-1 hover:text-emerald-600 dark:hover:text-emerald-400">
+                    <a aria-label={icon.title} key={index} href={icon.link} target="_blank" rel="noopener noreferrer" className="transition-all duration-300 hover:-translate-y-1 hover:text-emerald-600 dark:hover:text-emerald-400">
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <path d={icon.d} />
                         </svg>
@@ -28,7 +32,7 @@ export const Footer = () => {
             </div>
 
             <p className="mt-8 text-center text-slate-500 dark:text-zinc-500">
-                Made by <span className="text-[#0F2625] dark:text-zinc-300">Jesús Pestana</span>.
+                {t['footer.made_by']} <span className="text-[#0F2625] dark:text-zinc-300 font-medium">Jesús Pestana</span>.
             </p>
         </footer>
     );

@@ -1,6 +1,6 @@
-import { stacksInfo } from "../data/stacksInfo"
+import { stacksInfo } from "../data/stacksInfo";
 
-export const Stacks = () => {
+export const Stacks = ({ lang }: { lang: 'es' | 'en' }) => {
     return (
         <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-6 md:mb-8 mt-6">
             {stacksInfo.map((stack, index) => {
@@ -14,7 +14,7 @@ export const Stacks = () => {
                             src={stack.img.src}
                             height={18}
                             width={18}
-                            alt={stack.stack}
+                            alt={`${stack.stack} icon`}
                             className="object-contain"
                         />
                         <span>{stack.stack}</span>
@@ -22,5 +22,5 @@ export const Stacks = () => {
                 )
             })}
         </div>
-    )
-}
+    );
+};
