@@ -6,6 +6,7 @@ export const Stacks = ({ lang }: { lang: 'es' | 'en' }) => {
             {stacksInfo.map((stack, index) => {
                 return (
                     <div key={index}
+                    data-aos="fade up" data-aos-delay={index * 100}
                         className={`inline-flex items-center gap-2 px-3 py-1.5 border transition-all duration-150 ease-in-out rounded-full text-xs md:text-sm font-medium cursor-default hover:scale-105 hover:shadow-md hover:brightness-110
                         bg-white border-[#D1DFDC] text-[#0F2625]
                         dark:bg-[#0F2625]/30 dark:border-emerald-900/50 dark:text-emerald-50`}

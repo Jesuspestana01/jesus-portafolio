@@ -6,6 +6,7 @@ export const InfoCard = ({ lang }: { lang: 'es' | 'en' }) => {
             {expertiseAreas.map((expertise, index) => {
                 return (
                     <div
+                    data-aos="fade up" data-aos-delay={index * 100}
                         key={index}
                         className="p-6 transition-all duration-300 rounded-2xl backdrop-blur-sm max-w-80 group shadow-lg 
                         bg-white/70 border border-[#D1DFDC] shadow-emerald-900/5 hover:border-emerald-500/50 hover:-translate-y-2
