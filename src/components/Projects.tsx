@@ -16,7 +16,7 @@ export const Projects = ({ lang }: { lang: 'es' | 'en' }) => {
                         key={index}
                         data-aos="fade-up"
                         data-aos-delay={index * 100}
-                        className="overflow-hidden border transition-all duration-500 backdrop-blur-sm rounded-2xl shadow-2xl bg-white/70 border-[#D1DFDC] shadow-emerald-900/5 hover:border-emerald-500/40 dark:bg-neutral-900/40 dark:border-white/5 dark:hover:border-emerald-500/20 dark:shadow-black/50"
+                        className="overflow-hidden border transition-all duration-500 backdrop-blur-sm rounded-2xl shadow-md bg-white/70 border-[#ffffff] shadow-emerald-900/5 hover:border-emerald-500/40 dark:bg-neutral-900/40 dark:border-white/5 dark:hover:border-emerald-500/20 dark:shadow-black/50"
                     >
                         <div className="p-8 md:p-12">
                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">

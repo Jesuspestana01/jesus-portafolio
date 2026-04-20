@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <style>
+    /* Cambia el color del icono según el tema del navegador */
+    path { fill: #059669; } /* Emerald 600 */
+    @media (prefers-color-scheme: dark) {
+      path { fill: #34d399; } /* Emerald 400 */
+    }
+  </style>
+  <path d="M10 8l-6 8 6 8M22 8l6 8-6 8" stroke-width="2" stroke="currentColor" fill="none"/>
+</svg>

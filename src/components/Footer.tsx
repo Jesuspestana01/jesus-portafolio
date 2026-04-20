@@ -11,7 +11,7 @@ export const Footer = ({ lang }: { lang: 'es' | 'en' }) => {
     ];
 
     return (
-        <footer className="flex flex-col items-center justify-around w-full py-16 text-sm backdrop-blur-lg border-t transition-colors duration-300 bg-white/70 border-[#D1DFDC] text-slate-600 dark:bg-neutral-950/20 dark:border-white/5 dark:text-zinc-100">
+        <footer className="flex flex-col items-center justify-around w-full py-16 text-sm backdrop-blur-lg transition-colors duration-300 bg-white/70 border-[#D1DFDC] text-slate-600 dark:bg-neutral-800/20 dark:border-white/5 dark:text-zinc-100">
             <div className="flex items-center gap-8">
                 {footerLinks.map((link, i) => (
                     <a key={i} href={link.path} className="group flex flex-col gap-0.5 font-medium transition-all text-[#0F2625] dark:text-white">

@@ -35,7 +35,7 @@ export const ui = {
     'footer.made_by': 'Hecho por',
    'success.title': '¡Mensaje Enviado!',
     'success.message': 'Gracias por contactarme. Te responderé lo antes posible.',
-    'success.back': '← Volver al Portafolio',
+    'success.back': 'Volver al Portafolio',
   },
   en: {
     'nav.about': 'About me',
