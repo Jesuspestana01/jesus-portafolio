@@ -15,9 +15,34 @@ import { Footer } from "../components/Footer";
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width" />
 		<title>Portafolio</title>
+
+		<!-- FOUC blocker -->
+		<script is:inline>
+			const theme = (() => {
+				if (
+					typeof localStorage !== "undefined" &&
+					localStorage.getItem("theme")
+				) {
+					return localStorage.getItem("theme");
+				}
+				if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+					return "dark";
+				}
+				return "light";
+			})();
+
+			if (theme === "light") {
+				document.documentElement.classList.remove("dark");
+			} else {
+				document.documentElement.classList.add("dark");
+			}
+
+			window.localStorage.setItem("theme", theme);
+		</script>
+		
 	</head>
 	<body
-		class="mt-20 bg-[#F4F7F6] bg-[linear-gradient(180deg,rgba(200,215,210,1)_0%,rgba(244,247,246,1)_35%)] text-[#0F2625]
+		class="mt-25 bg-[#F4F7F6] bg-[linear-gradient(180deg,rgba(200,215,210,1)_0%,rgba(244,247,246,1)_35%)] text-[#0F2625]
       dark:bg-[#000000] dark:bg-[linear-gradient(180deg,rgba(15,38,37,1)_0%,rgba(0,0,0,1)_35%)] dark:text-white"
 	>
 		<Navbar client:load />
