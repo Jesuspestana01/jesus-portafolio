@@ -30,5 +30,7 @@ This portfolio is a high-performance, SEO-optimized web application built with *
 │   ├── assets/          # Optimized images (iSpot, Logos)
 │   ├── components/      # Reusable React & Astro components
 │   ├── data/            # projectsInfo.ts and other dataset
-│   └── pages/           # Application routes (index.astro)
+│   ├── i18n/            # Hardcoded text in both languages
+│   ├── pages/           # Application routes (index.astro)
+│   └── styles/          # global.css file for styling
 └── astro.config.mjs     # Astro configuration
