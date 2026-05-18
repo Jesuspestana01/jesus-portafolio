@@ -1,6 +1,8 @@
 ---
 const { lang, t } = Astro.props;
 const successAction = `/${lang}/success`;
+
+const cvPath = lang === "en" ? "/jesuspestana-resume-en.pdf" : "/jesuspestana-resume-es.pdf"
 ---
 
 <div class="w-full max-w-3xl mx-auto px-4">
@@ -77,7 +79,7 @@ const successAction = `/${lang}/success`;
                     </button>
 
                     <a
-                        href="/jesuspestana-resume.pdf"
+                        href={cvPath}
                         target="_blank"
                         class="flex items-center justify-center gap-2 w-full py-4 font-bold uppercase tracking-widest border rounded-xl transition-all border-[#D1DFDC] text-slate-500 hover:bg-emerald-50 hover:text-emerald-700 dark:border-white/10 dark:text-zinc-400 dark:hover:bg-white/5 dark:hover:text-white"
                     >

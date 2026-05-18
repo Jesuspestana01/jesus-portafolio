@@ -36,6 +36,8 @@ export const ui = {
    'success.title': '¡Mensaje Enviado!',
     'success.message': 'Gracias por contactarme. Te responderé lo antes posible.',
     'success.back': 'Volver al Portafolio',
+    'resume': 'src/pages/es/jesuspestana-resume-es.pdf'
+
   },
   en: {
     'nav.about': 'About me',
@@ -67,5 +69,6 @@ export const ui = {
     'success.title': 'Message Sent!',
     'success.message': 'Thank you for reaching out. I will get back to you as soon as possible.',
     'success.back': 'Back to home',
+    'resume': 'src/pages/es/jesuspestana-resume-es.pdf'
   },
 } as const;
