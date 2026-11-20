@@ -53,17 +53,17 @@ export const projectsInfo: ProjectItem[] = [
       es: [
         'Centraliza todo el ciclo de reparación, desde la recepción y el diagnóstico hasta el consumo de repuestos, historial del servicio y registro de pagos.',
         'Separación clara entre servicios de consumo en cliente (services/) y rutas/modelos modulares en servidor para facilitar mantenimiento y nuevas funciones.',
-        'Estructurado en monorepo full stack listo para habilitar modo demo en vivo y documentación ampliada.',
+        'Estructurado en monorepo full stack con vista demo interactiva desplegada en vivo.',
       ],
       en: [
         'Centralizes the full repair lifecycle from equipment intake and diagnosis to parts usage, service history, and payment tracking.',
         'Clear separation between client API service modules (services/) and modular backend routes/models for straightforward maintenance.',
-        'Structured as a full-stack monorepo ready for demo deployment and expanded repository documentation.',
+        'Structured as a full-stack monorepo with an interactive live demo view deployed online.',
       ],
     },
     stack: ['React 19', 'Tailwind CSS', 'shadcn/ui', 'Node.js', 'Express 5', 'Sequelize', 'PostgreSQL', 'JWT'],
+    liveUrl: 'https://system-service-phi.vercel.app/',
     githubUrl: 'https://github.com/Jesuspestana01/system-service',
-    // liveUrl: 'https://system-service-ten.vercel.app', // Activar cuando el modo demo esté listo
   },
   {
     id: 'ispot-web',
