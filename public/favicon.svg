@@ -1,10 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
   <style>
-    /* Cambia el color del icono según el tema del navegador */
-    path { fill: #059669; } /* Emerald 600 */
+    .frame { fill: #FAF9F5; stroke: #E4E1D8; }
+    .mark { fill: #161614; }
+    .dot { fill: #B24626; }
     @media (prefers-color-scheme: dark) {
-      path { fill: #34d399; } /* Emerald 400 */
+      .frame { fill: #161614; stroke: #2A2926; }
+      .mark { fill: #F2F0EA; }
+      .dot { fill: #E07A59; }
     }
   </style>
-  <path d="M10 8l-6 8 6 8M22 8l6 8-6 8" stroke-width="2" stroke="currentColor" fill="none"/>
+  <rect class="frame" x="1" y="1" width="30" height="30" rx="6" stroke-width="1.5" />
+  <!-- Geometric J -->
+  <path class="mark" d="M12.2 9.5H14.6V18.4C14.6 21.1 13.0 22.8 10.3 22.8C8.8 22.8 7.5 22.2 6.8 21.3L8.2 19.6C8.7 20.2 9.4 20.6 10.2 20.6C11.5 20.6 12.2 19.8 12.2 18.3V9.5Z" />
+  <!-- Geometric P -->
+  <path class="mark" d="M16.8 9.5H21.2C23.8 9.5 25.4 11.0 25.4 13.4C25.4 15.8 23.8 17.3 21.2 17.3H19.2V22.5H16.8V9.5ZM19.2 15.2H21.0C22.2 15.2 23.0 14.5 23.0 13.4C23.0 12.3 22.2 11.6 21.0 11.6H19.2V15.2Z" />
+  <!-- Editorial terracotta point -->
+  <circle class="dot" cx="24.2" cy="21.4" r="1.6" />
 </svg>

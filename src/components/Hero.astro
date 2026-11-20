@@ -1,0 +1,104 @@
+---
+import type { Lang } from "../i18n/ui";
+import { useTranslations } from "../i18n/utils";
+import { contactProfile } from "../data/contactLinks";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const cvHref = lang === "es" ? "/jesuspestana-resume-es.pdf" : "/jesuspestana-resume-en.pdf";
+---
+
+<section id="about-me" class="max-w-5xl mx-auto px-6 md:px-10 pt-32 md:pt-36 pb-16 md:pb-20">
+  <div class="reveal">
+    <div class="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.14em] text-[var(--ink-muted)]">
+      <span class="inline-block w-5 h-px bg-[var(--accent)]" aria-hidden="true"></span>
+      <span>{t("hero.eyebrow")}</span>
+    </div>
+
+    <h1 class="mt-6 font-serif text-4xl sm:text-5xl md:text-[3.5rem] leading-[1.08] tracking-[-0.02em] text-[var(--ink)] max-w-4xl">
+      {t("hero.headline.before")}<em class="italic font-normal text-[var(--accent)]">{t("hero.headline.italic")}</em>{t("hero.headline.after")}
+    </h1>
+
+    <p class="mt-6 text-base md:text-lg text-[var(--ink-secondary)] max-w-2xl leading-relaxed">
+      {t("hero.bio")}
+    </p>
+
+    <div class="mt-8 flex flex-wrap items-center gap-3 sm:gap-4">
+      <a
+        href="#projects"
+        class="inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-[var(--ink)] text-[var(--bg)] text-sm font-medium hover:opacity-90 transition-opacity"
+      >
+        <span>{t("hero.cta.projects")}</span>
+        <span aria-hidden="true">↓</span>
+      </a>
+
+      <a
+        href={cvHref}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 px-5 py-2.5 rounded-md border border-[var(--border-strong)] bg-[var(--surface)] text-[var(--ink)] text-sm font-medium hover:border-[var(--ink)] transition-colors"
+      >
+        <span>{t("hero.cta.cv")}</span>
+        <span class="font-mono text-xs text-[var(--ink-muted)]" aria-hidden="true">↗</span>
+      </a>
+
+      <div class="flex items-center gap-5 sm:ml-2 pt-1 sm:pt-0 text-sm text-[var(--ink-secondary)]">
+        <a
+          href="#contact"
+          class="hover:text-[var(--ink)] underline underline-offset-4 decoration-[var(--border-strong)] hover:decoration-[var(--ink)] transition-colors"
+        >
+          {t("hero.cta.contact")}
+        </a>
+        <a
+          href={contactProfile.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hover:text-[var(--ink)] underline underline-offset-4 decoration-[var(--border-strong)] hover:decoration-[var(--ink)] transition-colors"
+        >
+          GitHub
+        </a>
+        <a
+          href={contactProfile.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hover:text-[var(--ink)] underline underline-offset-4 decoration-[var(--border-strong)] hover:decoration-[var(--ink)] transition-colors"
+        >
+          LinkedIn
+        </a>
+      </div>
+    </div>
+
+    <div class="mt-14 pt-8 border-t border-[var(--border)] grid grid-cols-1 sm:grid-cols-3 gap-6">
+      <div>
+        <div class="font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--ink-muted)]">
+          {t("hero.proof.role.label")}
+        </div>
+        <div class="mt-1.5 text-sm font-medium text-[var(--ink)]">
+          {t("hero.proof.role.value")}
+        </div>
+      </div>
+
+      <div>
+        <div class="font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--ink-muted)]">
+          {t("hero.proof.focus.label")}
+        </div>
+        <div class="mt-1.5 text-sm font-medium text-[var(--ink)]">
+          {t("hero.proof.focus.value")}
+        </div>
+      </div>
+
+      <div>
+        <div class="font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--ink-muted)]">
+          {t("hero.proof.impact.label")}
+        </div>
+        <div class="mt-1.5 text-sm font-medium text-[var(--ink)]">
+          {t("hero.proof.impact.value")}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

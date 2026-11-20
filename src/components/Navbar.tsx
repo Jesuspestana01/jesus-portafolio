@@ -1,67 +1,155 @@
 import { useEffect, useState } from "react";
 import { useDarkMode } from "./ThemeToggler";
-import { ui } from "../i18n/ui";
+import { ui, type Lang } from "../i18n/ui";
 
-export const Navbar = ({ lang }: { lang: 'es' | 'en' }) => {
-    const { isDarkMode, toggleDarkMode } = useDarkMode();
-    const [isScrolled, setIsScrolled] = useState(false);
-    const t = ui[lang];
+export const Navbar = ({ lang }: { lang: Lang }) => {
+  const { isDarkMode, toggleDarkMode } = useDarkMode();
+  const [isScrolled, setIsScrolled] = useState(false);
+  const t = ui[lang];
 
-    const navLinks = [
-        { name: t['nav.about'], path: '#about-me' },
-        { name: t['nav.projects'], path: '#projects' },
-        { name: t['nav.contact'], path: '#contact' },
-    ];
+  const navLinks = [
+    { label: t["nav.experience"], href: "#experience" },
+    { label: t["nav.projects"], href: "#projects" },
+    { label: t["nav.capabilities"], href: "#capabilities" },
+    { label: t["nav.contact"], href: "#contact" },
+  ];
 
-    const langLink = lang === 'es' ? '/en/' : '/es/';
-    const langLabel = lang === 'es' ? 'EN' : 'ES';
+  useEffect(() => {
+    const onScroll = () => {
+      setIsScrolled(window.scrollY > 12);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-    useEffect(() => {
-        const handleScroll = () => {
-            setIsScrolled(window.scrollY > 10);
-        };
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
+  const persistLang = (target: Lang) => {
+    try {
+      localStorage.setItem("lang", target);
+    } catch {
+      // Ignore storage access errors in restricted browsing contexts
+    }
+  };
 
-    return (
-        <nav className={`fixed top-0 left-0 w-full flex items-center justify-between px-4 md:px-16 transition-all duration-500 z-50 
-            ${isScrolled
-                ? "py-3 backdrop-blur-xl shadow-md bg-white/80 dark:bg-neutral-950/40"
-                : "py-5 backdrop-blur-sm bg-white/20 dark:bg-black/10"}`}>
-            <div className="hidden md:block w-[120px]"></div>
-            <div className="flex items-center gap-4 md:gap-8">
-                {navLinks.map((link, i) => (
-                    <a key={i} href={link.path} className="group flex flex-col gap-0.5 font-medium transition-colors text-[#0F2625] dark:text-white text-[13px] md:text-base">
-                        {link.name}
-                        <div className="h-0.5 w-0 group-hover:w-full transition-all duration-300 bg-emerald-600 dark:bg-emerald-400" />
-                    </a>
-                ))}
-            </div>
+  return (
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-200 border-b ${
+        isScrolled
+          ? "border-[var(--border)] bg-[var(--bg)]/95 backdrop-blur-sm"
+          : "border-transparent bg-transparent"
+      }`}
+    >
+      <div className="max-w-5xl mx-auto px-6 md:px-10">
+        <div className="h-16 flex items-center justify-between gap-4">
+          <a
+            href="#top"
+            className="text-sm font-medium tracking-tight text-[var(--ink)] hover:text-[var(--accent)] transition-colors"
+          >
+            Jesús Pestana
+          </a>
 
-            <div className="flex items-center gap-2 md:gap-4 md:w-[120px] justify-end">
+          <nav aria-label="Primary navigation" className="hidden md:flex items-center gap-7">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="text-sm text-[var(--ink-secondary)] hover:text-[var(--ink)] transition-colors"
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+
+          <div className="flex items-center gap-2.5">
+            <div
+              className="inline-flex items-center border border-[var(--border)] rounded-md bg-[var(--surface)] px-1 py-0.5 font-mono text-xs"
+              role="group"
+              aria-label="Language switcher"
+            >
+              {lang === "es" ? (
+                <span className="px-2 py-1 text-[var(--ink)] font-semibold" aria-current="true">
+                  ES
+                </span>
+              ) : (
                 <a
-                    href={langLink}
-                    className="flex items-center justify-center w-10 h-10 text-xs font-bold border border-[#D1DFDC] dark:border-white/10 rounded-xl text-[#0F2625] dark:text-white hover:bg-emerald-500 hover:text-white transition-all bg-white/50 dark:bg-white/5 dark:hover:bg-white/10"
+                  href="/es/"
+                  onClick={() => persistLang("es")}
+                  className="px-2 py-1 text-[var(--ink-muted)] hover:text-[var(--ink)] transition-colors"
                 >
-                    {langLabel}
+                  ES
                 </a>
-                <button
-                    onClick={toggleDarkMode}
-                    className="flex items-center justify-center w-10 h-10 rounded-xl border transition-all duration-300 bg-white/50 border-[#D1DFDC] text-[#0F2625] hover:bg-emerald-500 hover:text-white transition-all dark:bg-white/5 dark:border-white/10 dark:text-white dark:hover:bg-white/10"
-                    aria-label="Toggle Theme"
+              )}
+              <span className="text-[var(--border-strong)] select-none" aria-hidden="true">
+                /
+              </span>
+              {lang === "en" ? (
+                <span className="px-2 py-1 text-[var(--ink)] font-semibold" aria-current="true">
+                  EN
+                </span>
+              ) : (
+                <a
+                  href="/en/"
+                  onClick={() => persistLang("en")}
+                  className="px-2 py-1 text-[var(--ink-muted)] hover:text-[var(--ink)] transition-colors"
                 >
-                    {isDarkMode ? (
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-sun" viewBox="0 0 16 16">
-                            <path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708" />
-                        </svg>
-                    ) : (
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                        </svg>
-                    )}
-                </button>
+                  EN
+                </a>
+              )}
             </div>
+
+            <button
+              type="button"
+              onClick={toggleDarkMode}
+              aria-label={isDarkMode ? "Switch to light theme" : "Switch to dark theme"}
+              className="inline-flex items-center justify-center w-8 h-8 rounded-md border border-[var(--border)] hover:border-[var(--border-strong)] bg-[var(--surface)] text-[var(--ink-secondary)] hover:text-[var(--ink)] transition-colors cursor-pointer"
+            >
+              {/* Sun icon visible in dark mode */}
+              <svg
+                className="hidden dark:block w-4 h-4"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.75"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="12" r="4" />
+                <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+              </svg>
+              {/* Moon icon visible in light mode */}
+              <svg
+                className="block dark:hidden w-4 h-4"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.75"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        {/* Compact mobile editorial strip */}
+        <nav
+          aria-label="Mobile navigation"
+          className="md:hidden flex items-center justify-between gap-2 py-2.5 border-t border-[var(--border)] font-mono text-[11px] uppercase tracking-wider text-[var(--ink-secondary)]"
+        >
+          {navLinks.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              className="hover:text-[var(--ink)] transition-colors whitespace-nowrap"
+            >
+              {link.label}
+            </a>
+          ))}
         </nav>
-    );
+      </div>
+    </header>
+  );
 };

@@ -1,0 +1,100 @@
+---
+import type { Lang } from "../i18n/ui";
+import { useTranslations } from "../i18n/utils";
+import { workExperience, education } from "../data/experienceInfo";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section id="experience" class="max-w-5xl mx-auto px-6 md:px-10">
+  <div class="border-t border-[var(--border)] py-16 md:py-24 grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-12">
+    <div class="md:col-span-3 reveal">
+      <div class="md:sticky md:top-24">
+        <span class="font-mono text-xs tracking-[0.15em] text-[var(--accent)]">01</span>
+        <h2 class="mt-2 font-serif text-3xl text-[var(--ink)] tracking-tight">
+          {t("section.experience.title")}
+        </h2>
+        <p class="mt-2 text-sm text-[var(--ink-muted)] leading-relaxed">
+          {t("section.experience.subtitle")}
+        </p>
+      </div>
+    </div>
+
+    <div class="md:col-span-9">
+      <div>
+        {workExperience.map((entry) => (
+          <article class="reveal border-b border-[var(--border)] pb-10 mb-10">
+            <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 sm:gap-4">
+              <div>
+                <h3 class="text-lg font-semibold text-[var(--ink)] tracking-tight">
+                  {entry.role[lang]}
+                </h3>
+                <p class="text-sm text-[var(--ink-secondary)] mt-0.5">
+                  {entry.company} · <span class="text-[var(--ink-muted)]">{entry.location[lang]}</span>
+                </p>
+              </div>
+              <span class="font-mono text-xs text-[var(--ink-muted)] shrink-0">
+                {entry.period[lang]}
+              </span>
+            </div>
+
+            <p class="mt-4 text-sm md:text-[15px] text-[var(--ink-secondary)] leading-relaxed">
+              {entry.summary[lang]}
+            </p>
+
+            <ul class="mt-4 space-y-2.5">
+              {entry.highlights[lang].map((item) => (
+                <li class="flex items-start gap-3 text-sm text-[var(--ink-secondary)] leading-relaxed">
+                  <span class="font-mono text-xs text-[var(--ink-muted)] mt-0.5 select-none shrink-0" aria-hidden="true">
+                    —
+                  </span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div class="mt-5 flex flex-wrap gap-2">
+              {entry.tags.map((tag) => (
+                <span class="font-mono text-[11px] px-2.5 py-1 rounded bg-[var(--bg-subtle)] border border-[var(--border)] text-[var(--ink-secondary)]">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div class="reveal pt-2">
+        <h3 class="font-mono text-xs uppercase tracking-[0.15em] text-[var(--ink-muted)] mb-6">
+          {t("experience.education_title")}
+        </h3>
+
+        <div class="space-y-6">
+          {education.map((edu) => (
+            <div class="grid grid-cols-1 sm:grid-cols-12 gap-1.5 sm:gap-6">
+              <div class="sm:col-span-4 font-mono text-xs text-[var(--ink-muted)] pt-0.5">
+                {edu.period[lang]}
+              </div>
+              <div class="sm:col-span-8">
+                <div class="text-sm font-semibold text-[var(--ink)]">
+                  {edu.degree[lang]}
+                </div>
+                <div class="text-sm text-[var(--ink-secondary)] mt-0.5">
+                  {edu.institution} · {edu.location[lang]}
+                </div>
+                <p class="text-xs text-[var(--ink-muted)] mt-1.5 leading-relaxed">
+                  {edu.focus[lang]}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

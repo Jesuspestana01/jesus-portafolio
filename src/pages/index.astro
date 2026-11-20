@@ -1,28 +1,24 @@
 ---
 ---
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="refresh" content="0;url=/es/" />
-    <title>Jesus Pestana | Full Stack Developer</title>
-<link rel="icon" type="image/svg+xml" href="/brand-icon.svg?v=2" />
-</head>
-<body>
+    <title>Jesús Pestana — Full Stack Developer (UI/UX & Backend)</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body>
     <script is:inline>
-        const savedLang = localStorage.getItem('lang');
-        
-        if (savedLang === 'en' || savedLang === 'es') {
-            window.location.pathname = `/${savedLang}/`;
-        } else {
-            const browserLang = window.navigator.language.split('-')[0];
-            
-            if (browserLang === 'en') {
-                window.location.pathname = '/en/';
-            } else {
-                window.location.pathname = '/es/';
-            }
-        }
+      const savedLang = localStorage.getItem("lang");
+
+      if (savedLang === "en" || savedLang === "es") {
+        window.location.pathname = `/${savedLang}/`;
+      } else {
+        const browserLang = (window.navigator.language || "es").split("-")[0];
+        window.location.pathname = browserLang === "en" ? "/en/" : "/es/";
+      }
     </script>
-</body>
+  </body>
 </html>

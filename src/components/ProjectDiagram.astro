@@ -1,0 +1,580 @@
+---
+import type { Lang } from "../i18n/ui";
+import type { ProjectId } from "../data/projectsInfo";
+
+interface Props {
+  projectId: ProjectId;
+  lang: Lang;
+}
+
+const { projectId, lang } = Astro.props;
+
+const gridId = `dot-grid-${projectId}`;
+const arrowId = `arrow-${projectId}`;
+const arrowRevId = `arrow-rev-${projectId}`;
+
+const ariaLabels: Record<ProjectId, Record<Lang, string>> = {
+  "system-service": {
+    es: "Diagrama de arquitectura de System Service: interfaz React 19 con shadcn/ui conectada vía REST y JWT a una API Express 5 de 11 rutas y base relacional Sequelize con PostgreSQL y MariaDB.",
+    en: "System Service architecture diagram: React 19 and shadcn/ui interface connected via REST and JWT to an Express 5 API with 11 route modules and a Sequelize relational database supporting PostgreSQL and MariaDB.",
+  },
+  "ispot-web": {
+    es: "Diagrama de arquitectura web de iSpot: interfaz responsiva conectada a flujos de catálogo con JavaScript, React y Liquid orientados a rendimiento web.",
+    en: "iSpot web storefront architecture diagram: responsive UI layer connected to catalog and purchasing flows in JavaScript, React, and Liquid focused on web performance.",
+  },
+  "fullstack-boilerplate": {
+    es: "Diagrama de arquitectura de Base Full-Stack: cliente React con Vite conectado vía HTTP a servidor Express REST API con autenticación y ORM Sequelize para PostgreSQL y MySQL.",
+    en: "Base Full-Stack architecture diagram: React and Vite client communicating over HTTP with an Express REST API and Sequelize ORM supporting PostgreSQL and MySQL.",
+  },
+};
+---
+
+<div class="mt-6 bg-[var(--bg-subtle)] border border-[var(--border)] rounded-lg p-4 md:p-5 overflow-x-auto">
+  <svg
+    viewBox="0 0 720 176"
+    class="w-full min-w-[540px] h-auto block"
+    role="img"
+    aria-label={ariaLabels[projectId][lang]}
+  >
+    <defs>
+      <pattern id={gridId} width="16" height="16" patternUnits="userSpaceOnUse">
+        <circle cx="1.5" cy="1.5" r="0.9" fill="var(--border-strong)" opacity="0.45" />
+      </pattern>
+      <marker
+        id={arrowId}
+        viewBox="0 0 10 10"
+        refX="8.5"
+        refY="5"
+        markerWidth="6"
+        markerHeight="6"
+        orient="auto"
+      >
+        <path d="M 1 1.5 L 8.5 5 L 1 8.5 z" fill="var(--ink-muted)" />
+      </marker>
+      <marker
+        id={arrowRevId}
+        viewBox="0 0 10 10"
+        refX="1.5"
+        refY="5"
+        markerWidth="6"
+        markerHeight="6"
+        orient="auto"
+      >
+        <path d="M 9 1.5 L 1.5 5 L 9 8.5 z" fill="var(--ink-muted)" />
+      </marker>
+    </defs>
+
+    <rect x="0" y="0" width="720" height="176" rx="6" fill={`url(#${gridId})`} />
+
+    {projectId === "system-service" && (
+      <g>
+        <!-- Node 1: React 19 UI -->
+        <rect
+          x="24"
+          y="46"
+          width="196"
+          height="84"
+          rx="6"
+          fill="var(--surface)"
+          stroke="var(--border-strong)"
+          stroke-width="1.25"
+        />
+        <text
+          x="122"
+          y="69"
+          text-anchor="middle"
+          fill="var(--ink-muted)"
+          style="font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.1em;"
+        >
+          {lang === "es" ? "01 / UI Y ROLES" : "01 / UI & ROLES"}
+        </text>
+        <text
+          x="122"
+          y="91"
+          text-anchor="middle"
+          fill="var(--ink)"
+          style="font-family: var(--font-sans); font-size: 13px; font-weight: 600;"
+        >
+          React 19 + shadcn/ui
+        </text>
+        <text
+          x="122"
+          y="112"
+          text-anchor="middle"
+          fill="var(--ink-secondary)"
+          style="font-family: var(--font-mono); font-size: 10.5px;"
+        >
+          {lang === "es" ? "Órdenes · Stock · Roles" : "Orders · Inventory · Roles"}
+        </text>
+
+        <!-- Bidirectional Connector 1 <-> 2 -->
+        <line
+          x1="224"
+          y1="88"
+          x2="258"
+          y2="88"
+          stroke="var(--ink-muted)"
+          stroke-width="1.25"
+          marker-start={`url(#${arrowRevId})`}
+          marker-end={`url(#${arrowId})`}
+        />
+        <text
+          x="241"
+          y="78"
+          text-anchor="middle"
+          fill="var(--ink-muted)"
+          style="font-family: var(--font-mono); font-size: 8.5px;"
+        >
+          REST/JWT
+        </text>
+
+        <!-- Node 2: Express 5 API (Highlighted) -->
+        <rect
+          x="262"
+          y="46"
+          width="196"
+          height="84"
+          rx="6"
+          fill="var(--surface)"
+          stroke="var(--accent)"
+          stroke-width="1.5"
+        />
+        <rect
+          x="262"
+          y="46"
+          width="196"
+          height="84"
+          rx="6"
+          fill="var(--accent-soft)"
+        />
+        <text
+          x="360"
+          y="69"
+          text-anchor="middle"
+          fill="var(--accent)"
+          style="font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.1em;"
+        >
+          02 / BACKEND API
+        </text>
+        <text
+          x="360"
+          y="91"
+          text-anchor="middle"
+          fill="var(--ink)"
+          style="font-family: var(--font-sans); font-size: 13px; font-weight: 600;"
+        >
+          Express 5 API
+        </text>
+        <text
+          x="360"
+          y="112"
+          text-anchor="middle"
+          fill="var(--ink-secondary)"
+          style="font-family: var(--font-mono); font-size: 10.5px;"
+        >
+          {lang === "es" ? "11 Rutas · JWT · RBAC" : "11 Routes · JWT · RBAC"}
+        </text>
+
+        <!-- Bidirectional Connector 2 <-> 3 -->
+        <line
+          x1="462"
+          y1="88"
+          x2="496"
+          y2="88"
+          stroke="var(--ink-muted)"
+          stroke-width="1.25"
+          marker-start={`url(#${arrowRevId})`}
+          marker-end={`url(#${arrowId})`}
+        />
+        <text
+          x="479"
+          y="78"
+          text-anchor="middle"
+          fill="var(--ink-muted)"
+          style="font-family: var(--font-mono); font-size: 9px;"
+        >
+          ORM
+        </text>
+
+        <!-- Node 3: Sequelize SQL -->
+        <rect
+          x="500"
+          y="46"
+          width="196"
+          height="84"
+          rx="6"
+          fill="var(--surface)"
+          stroke="var(--border-strong)"
+          stroke-width="1.25"
+        />
+        <text
+          x="598"
+          y="69"
+          text-anchor="middle"
+          fill="var(--ink-muted)"
+          style="font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.1em;"
+        >
+          {lang === "es" ? "03 / DATOS" : "03 / DATABASE"}
+        </text>
+        <text
+          x="598"
+          y="91"
+          text-anchor="middle"
+          fill="var(--ink)"
+          style="font-family: var(--font-sans); font-size: 13px; font-weight: 600;"
+        >
+          Sequelize SQL
+        </text>
+        <text
+          x="598"
+          y="112"
+          text-anchor="middle"
+          fill="var(--ink-secondary)"
+          style="font-family: var(--font-mono); font-size: 10.5px;"
+        >
+          {lang === "es" ? "PG · MariaDB · 11 Modelos" : "PG · MariaDB · 11 Models"}
+        </text>
+      </g>
+    )}
+
+    {projectId === "ispot-web" && (
+      <g>
+        <!-- Node 1: UI & UX -->
+        <rect
+          x="24"
+          y="46"
+          width="196"
+          height="84"
+          rx="6"
+          fill="var(--surface)"
+          stroke="var(--border-strong)"
+          stroke-width="1.25"
+        />
+        <text
+          x="122"
+          y="69"
+          text-anchor="middle"
+          fill="var(--ink-muted)"
+          style="font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.1em;"
+        >
+          01 / UI &amp; UX
+        </text>
+        <text
+          x="122"
+          y="91"
+          text-anchor="middle"
+          fill="var(--ink)"
+          style="font-family: var(--font-sans); font-size: 13px; font-weight: 600;"
+        >
+          {lang === "es" ? "Interfaz Web" : "Responsive UI"}
+        </text>
+        <text
+          x="122"
+          y="112"
+          text-anchor="middle"
+          fill="var(--ink-secondary)"
+          style="font-family: var(--font-mono); font-size: 10.5px;"
+        >
+          {lang === "es" ? "Componentes · Móvil" : "Components · Mobile"}
+        </text>
+
+        <!-- Connector 1 -> 2 -->
+        <line
+          x1="220"
+          y1="88"
+          x2="260"
+          y2="88"
+          stroke="var(--ink-muted)"
+          stroke-width="1.25"
+          marker-end={`url(#${arrowId})`}
+        />
+        <text
+          x="241"
+          y="78"
+          text-anchor="middle"
+          fill="var(--ink-muted)"
+          style="font-family: var(--font-mono); font-size: 9px;"
+        >
+          WEB
+        </text>
+
+        <!-- Node 2: Storefront (Highlighted) -->
+        <rect
+          x="262"
+          y="46"
+          width="196"
+          height="84"
+          rx="6"
+          fill="var(--surface)"
+          stroke="var(--accent)"
+          stroke-width="1.5"
+        />
+        <rect
+          x="262"
+          y="46"
+          width="196"
+          height="84"
+          rx="6"
+          fill="var(--accent-soft)"
+        />
+        <text
+          x="360"
+          y="69"
+          text-anchor="middle"
+          fill="var(--accent)"
+          style="font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.1em;"
+        >
+          02 / STOREFRONT
+        </text>
+        <text
+          x="360"
+          y="91"
+          text-anchor="middle"
+          fill="var(--ink)"
+          style="font-family: var(--font-sans); font-size: 13px; font-weight: 600;"
+        >
+          {lang === "es" ? "Catálogo y Flujos" : "Catalog & Flows"}
+        </text>
+        <text
+          x="360"
+          y="112"
+          text-anchor="middle"
+          fill="var(--ink-secondary)"
+          style="font-family: var(--font-mono); font-size: 10.5px;"
+        >
+          JS · React · Liquid
+        </text>
+
+        <!-- Connector 2 -> 3 -->
+        <line
+          x1="458"
+          y1="88"
+          x2="498"
+          y2="88"
+          stroke="var(--ink-muted)"
+          stroke-width="1.25"
+          marker-end={`url(#${arrowId})`}
+        />
+        <text
+          x="479"
+          y="78"
+          text-anchor="middle"
+          fill="var(--ink-muted)"
+          style="font-family: var(--font-mono); font-size: 9px;"
+        >
+          SEO
+        </text>
+
+        <!-- Node 3: Delivery / Web Performance -->
+        <rect
+          x="500"
+          y="46"
+          width="196"
+          height="84"
+          rx="6"
+          fill="var(--surface)"
+          stroke="var(--border-strong)"
+          stroke-width="1.25"
+        />
+        <text
+          x="598"
+          y="69"
+          text-anchor="middle"
+          fill="var(--ink-muted)"
+          style="font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.1em;"
+        >
+          {lang === "es" ? "03 / ENTREGA" : "03 / DELIVERY"}
+        </text>
+        <text
+          x="598"
+          y="91"
+          text-anchor="middle"
+          fill="var(--ink)"
+          style="font-family: var(--font-sans); font-size: 13px; font-weight: 600;"
+        >
+          {lang === "es" ? "Rendimiento Web" : "Web Performance"}
+        </text>
+        <text
+          x="598"
+          y="112"
+          text-anchor="middle"
+          fill="var(--ink-secondary)"
+          style="font-family: var(--font-mono); font-size: 10.5px;"
+        >
+          {lang === "es" ? "Carga Rápida · UX" : "Fast Load · Clean UX"}
+        </text>
+      </g>
+    )}
+
+    {projectId === "fullstack-boilerplate" && (
+      <g>
+        <!-- Node 1: React + Vite -->
+        <rect
+          x="24"
+          y="46"
+          width="196"
+          height="84"
+          rx="6"
+          fill="var(--surface)"
+          stroke="var(--border-strong)"
+          stroke-width="1.25"
+        />
+        <text
+          x="122"
+          y="69"
+          text-anchor="middle"
+          fill="var(--ink-muted)"
+          style="font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.1em;"
+        >
+          {lang === "es" ? "01 / CLIENTE" : "01 / CLIENT"}
+        </text>
+        <text
+          x="122"
+          y="91"
+          text-anchor="middle"
+          fill="var(--ink)"
+          style="font-family: var(--font-sans); font-size: 13px; font-weight: 600;"
+        >
+          React + Vite
+        </text>
+        <text
+          x="122"
+          y="112"
+          text-anchor="middle"
+          fill="var(--ink-secondary)"
+          style="font-family: var(--font-mono); font-size: 10.5px;"
+        >
+          {lang === "es" ? "SPA · Rutas · Servicios" : "SPA · Router · Services"}
+        </text>
+
+        <!-- Bidirectional Connector 1 <-> 2 -->
+        <line
+          x1="224"
+          y1="88"
+          x2="258"
+          y2="88"
+          stroke="var(--ink-muted)"
+          stroke-width="1.25"
+          marker-start={`url(#${arrowRevId})`}
+          marker-end={`url(#${arrowId})`}
+        />
+        <text
+          x="241"
+          y="78"
+          text-anchor="middle"
+          fill="var(--ink-muted)"
+          style="font-family: var(--font-mono); font-size: 9px;"
+        >
+          HTTP
+        </text>
+
+        <!-- Node 2: Express REST API (Highlighted) -->
+        <rect
+          x="262"
+          y="46"
+          width="196"
+          height="84"
+          rx="6"
+          fill="var(--surface)"
+          stroke="var(--accent)"
+          stroke-width="1.5"
+        />
+        <rect
+          x="262"
+          y="46"
+          width="196"
+          height="84"
+          rx="6"
+          fill="var(--accent-soft)"
+        />
+        <text
+          x="360"
+          y="69"
+          text-anchor="middle"
+          fill="var(--accent)"
+          style="font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.1em;"
+        >
+          {lang === "es" ? "02 / SERVIDOR" : "02 / SERVER"}
+        </text>
+        <text
+          x="360"
+          y="91"
+          text-anchor="middle"
+          fill="var(--ink)"
+          style="font-family: var(--font-sans); font-size: 13px; font-weight: 600;"
+        >
+          Express REST API
+        </text>
+        <text
+          x="360"
+          y="112"
+          text-anchor="middle"
+          fill="var(--ink-secondary)"
+          style="font-family: var(--font-mono); font-size: 10.5px;"
+        >
+          {lang === "es" ? "Rutas · Auth · Env" : "Routes · Auth · Env"}
+        </text>
+
+        <!-- Bidirectional Connector 2 <-> 3 -->
+        <line
+          x1="462"
+          y1="88"
+          x2="496"
+          y2="88"
+          stroke="var(--ink-muted)"
+          stroke-width="1.25"
+          marker-start={`url(#${arrowRevId})`}
+          marker-end={`url(#${arrowId})`}
+        />
+        <text
+          x="479"
+          y="78"
+          text-anchor="middle"
+          fill="var(--ink-muted)"
+          style="font-family: var(--font-mono); font-size: 9px;"
+        >
+          SQL
+        </text>
+
+        <!-- Node 3: Sequelize ORM -->
+        <rect
+          x="500"
+          y="46"
+          width="196"
+          height="84"
+          rx="6"
+          fill="var(--surface)"
+          stroke="var(--border-strong)"
+          stroke-width="1.25"
+        />
+        <text
+          x="598"
+          y="69"
+          text-anchor="middle"
+          fill="var(--ink-muted)"
+          style="font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.1em;"
+        >
+          {lang === "es" ? "03 / PERSISTENCIA" : "03 / STORAGE"}
+        </text>
+        <text
+          x="598"
+          y="91"
+          text-anchor="middle"
+          fill="var(--ink)"
+          style="font-family: var(--font-sans); font-size: 13px; font-weight: 600;"
+        >
+          Sequelize ORM
+        </text>
+        <text
+          x="598"
+          y="112"
+          text-anchor="middle"
+          fill="var(--ink-secondary)"
+          style="font-family: var(--font-mono); font-size: 10.5px;"
+        >
+          PostgreSQL · MySQL
+        </text>
+      </g>
+    )}
+  </svg>
+</div>

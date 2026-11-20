@@ -1,46 +1,50 @@
 ---
-import "../../styles/global.css";
+import Layout from "../../layouts/Layout.astro";
 import { getLangFromUrl, useTranslations } from "../../i18n/utils";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-const tabTitle = lang === 'es' ? 'Mensaje Enviado | Jesús Pestana' : 'Message Sent | Jesús Pestana';
+const pageTitle = `${t("success.title")} — Jesús Pestana`;
 ---
 
-<html lang={lang}>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width" />
-        <title>{tabTitle}</title>
+<Layout lang={lang} title={pageTitle} description={t("meta.description")}>
+  <main class="min-h-screen flex items-center justify-center px-6 py-16">
+    <div class="w-full max-w-md bg-[var(--surface)] border border-[var(--border)] rounded-lg p-8 md:p-10">
+      <div class="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.14em] text-[var(--ink-muted)]">
+        <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-[var(--accent-soft)] text-[var(--accent)]">
+          <svg
+            class="w-3.5 h-3.5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M5 13l4 4L19 7" />
+          </svg>
+        </span>
+        <span>{t("success.eyebrow")}</span>
+      </div>
 
-        <script is:inline>
-            if (localStorage.getItem("theme") === "dark" || (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
-                document.documentElement.classList.add("dark");
-            } else {
-                document.documentElement.classList.remove("dark");
-            }
-        </script>
-    </head>
-    <body class="bg-[#F4F7F6] text-[#0F2625] dark:bg-neutral-950 dark:text-white flex items-center justify-center min-h-screen px-4 transition-colors duration-300">
-        <main class="text-center space-y-6">
-            <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-4 shadow-[0_0_20px_rgba(16,185,129,0.1)]">
-                <svg class="w-10 h-10 text-emerald-600 dark:text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                </svg>
-            </div>
-            
-            <h1 class="text-4xl font-bold tracking-tight">
-                {t('success.title')}
-            </h1>
-            
-            <p class="text-slate-600 dark:text-zinc-400 max-w-sm mx-auto">
-                {t('success.message')}
-            </p>
-            
-            <div class="pt-6">
-                <a 
-                    href={`/${lang}/`} 
-                    class="px-8 py-3 inline-block bg-white dark:bg-emerald-500/10 border border-[#D1DFDC] dark:border-emerald-500/30 rounded-full text-emerald-700 dark:text-emerald-400 text-sm font-bold uppercase tracking-widest hover:bg-emerald-50 dark:hover:bg-emerald-500/20 transition-all active:scale-95 shadow-sm"
-                >
-                    {t('success.back')}
-                </a>
+      <h1 class="mt-6 font-serif text-3xl text-[var(--ink)] tracking-tight">
+        {t("success.title")}
+      </h1>
+
+      <p class="mt-3 text-sm md:text-[15px] text-[var(--ink-secondary)] leading-relaxed">
+        {t("success.message")}
+      </p>
+
+      <div class="mt-8 pt-6 border-t border-[var(--border)]">
+        <a
+          href={`/${lang}/`}
+          class="inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-[var(--ink)] text-[var(--bg)] text-sm font-medium hover:opacity-90 transition-opacity"
+        >
+          <span aria-hidden="true">←</span>
+          <span>{t("success.back")}</span>
+        </a>
+      </div>
+    </div>
+  </main>
+</Layout>

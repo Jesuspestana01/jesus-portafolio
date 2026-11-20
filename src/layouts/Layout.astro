@@ -1,0 +1,105 @@
+---
+import "../styles/global.css";
+import type { Lang } from "../i18n/ui";
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+}
+
+const { lang, title, description } = Astro.props;
+const ogLocale = lang === "es" ? "es_VE" : "en_US";
+const currentPath = Astro.url.pathname;
+const isSuccess = currentPath.includes("/success");
+const esHref = isSuccess ? "/es/success" : "/es/";
+const enHref = isSuccess ? "/en/success" : "/en/";
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate" hreflang="es" href={esHref} />
+    <link rel="alternate" hreflang="en" href={enHref} />
+    <link rel="alternate" hreflang="x-default" href={enHref} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:locale" content={ogLocale} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400..500;1,6..72,400..500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    />
+
+    <!-- FOUC blocker & progressive reveal gate -->
+    <script is:inline>
+      (() => {
+        const stored = typeof localStorage !== "undefined" ? localStorage.getItem("theme") : null;
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        const theme = stored === "dark" || stored === "light" ? stored : prefersDark ? "dark" : "light";
+
+        if (theme === "dark") {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+
+        if (typeof localStorage !== "undefined" && !stored) {
+          localStorage.setItem("theme", theme);
+        }
+
+        document.documentElement.classList.add("js-reveal");
+      })();
+    </script>
+  </head>
+  <body class="min-h-screen bg-[var(--bg)] text-[var(--ink)]">
+    <slot />
+
+    <script>
+      const initReveals = () => {
+        const elements = Array.from(document.querySelectorAll<HTMLElement>(".reveal"));
+        if (elements.length === 0) return;
+
+        if (!("IntersectionObserver" in window)) {
+          elements.forEach((el) => el.classList.add("is-visible"));
+          return;
+        }
+
+        const observer = new IntersectionObserver(
+          (entries, obs) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                obs.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.08, rootMargin: "0px 0px -24px 0px" }
+        );
+
+        const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+        elements.forEach((el) => {
+          const rect = el.getBoundingClientRect();
+          if (rect.top < viewportHeight * 0.96) {
+            el.classList.add("is-visible");
+          } else {
+            observer.observe(el);
+          }
+        });
+      };
+
+      initReveals();
+      document.addEventListener("astro:after-swap", initReveals);
+    </script>
+  </body>
+</html>
